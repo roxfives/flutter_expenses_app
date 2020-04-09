@@ -1,8 +1,7 @@
-import 'package:expenses_app/widgets/new_transaction.dart';
-import 'package:expenses_app/widgets/transaction_list.dart';
 import 'package:flutter/material.dart';
 
 import 'widgets/transaction_list.dart';
+import 'widgets/new_transaction.dart';
 import 'models/transaction.dart';
 
 void main() => runApp(MyApp());
@@ -13,7 +12,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
       ),
       home: MyHomePage(),
     );
