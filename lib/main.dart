@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'transaction.dart';
 
@@ -25,6 +26,12 @@ class MyHomePage extends StatelessWidget {
       amount: 69.99,
       date: DateTime.now(),
     ),
+    Transaction(
+      id: 't2',
+      title: 'New new shoes',
+      amount: 70.99,
+      date: DateTime.now(),
+    ),
   ];
 
   @override
@@ -45,10 +52,56 @@ class MyHomePage extends StatelessWidget {
               child: Text('Chart!'),
             ),
           ),
-          Card(
-            color: Colors.red,
-            child: Text('List of transactions'),
-          )
+          Column(
+            children: transactions.map((tx) {
+              return Card(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Text(
+                        NumberFormat.simpleCurrency().format(tx.amount),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.purple,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: 15,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.purple,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          tx.title,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          DateFormat.yMMMd().format(tx.date),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
