@@ -34,48 +34,40 @@ class TransactionList extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (ctx, pos) {
                 return Card(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          NumberFormat.simpleCurrency()
-                              .format(_transactions.elementAt(pos).amount),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.symmetric(
-                          vertical: 10,
-                          horizontal: 15,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Theme.of(context).primaryColor,
-                            width: 2,
-                          ),
-                        ),
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 5,
+                    vertical: 8,
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      _transactions.elementAt(pos).title,
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                    subtitle: Text(
+                      DateFormat.yMMMd()
+                          .format(_transactions.elementAt(pos).date),
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            _transactions.elementAt(pos).title,
-                            style: Theme.of(context).textTheme.title,
-                          ),
-                          Text(
-                            DateFormat.yMMMd()
-                                .format(_transactions.elementAt(pos).date),
+                    ),
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: Padding(
+                        padding: const EdgeInsets.all(6),
+                        child: FittedBox(
+                          child: Text(
+                            NumberFormat.simpleCurrency()
+                                .format(_transactions.elementAt(pos).amount),
                             style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Theme.of(context).accentColor,
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                    ],
+                    ),
                   ),
                 );
               },
@@ -84,3 +76,49 @@ class TransactionList extends StatelessWidget {
     );
   }
 }
+
+// Card(
+//                   child: Row(
+//                     children: <Widget>[
+//                       Container(
+//                         child: Text(
+//                           NumberFormat.simpleCurrency()
+//                               .format(_transactions.elementAt(pos).amount),
+//                           style: TextStyle(
+//                             fontWeight: FontWeight.bold,
+//                             fontSize: 20,
+//                             color: Theme.of(context).primaryColor,
+//                           ),
+//                         ),
+//                         padding: EdgeInsets.all(10),
+//                         margin: EdgeInsets.symmetric(
+//                           vertical: 10,
+//                           horizontal: 15,
+//                         ),
+//                         decoration: BoxDecoration(
+//                           border: Border.all(
+//                             color: Theme.of(context).primaryColor,
+//                             width: 2,
+//                           ),
+//                         ),
+//                       ),
+//                       Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: <Widget>[
+//                           Text(
+//                             _transactions.elementAt(pos).title,
+//                             style: Theme.of(context).textTheme.title,
+//                           ),
+//                           Text(
+//                             DateFormat.yMMMd()
+//                                 .format(_transactions.elementAt(pos).date),
+//                             style: TextStyle(
+//                               color: Colors.grey,
+//                               fontSize: 10,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   ),
+//                 );
