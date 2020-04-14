@@ -16,21 +16,6 @@ class _NewTransactionState extends State<NewTransaction> {
 
   DateTime _selectedDate;
 
-  void _presentDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2020),
-      lastDate: DateTime.now(),
-    ).then((date) {
-      if (date != null) {
-        setState(() {
-          _selectedDate = date;
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,14 +32,15 @@ class _NewTransactionState extends State<NewTransaction> {
               decoration: InputDecoration(labelText: 'Amount'),
               controller: amountController,
               keyboardType: TextInputType.number,
-              onSubmitted: (_) => onSubmit(),
+              onSubmitted: (_) => _onSubmit(),
             ),
             Row(
               children: <Widget>[
                 Expanded(
                   child: Text(_selectedDate == null
                       ? 'No Date Chosen!'
-                      : 'Picked date: ' + DateFormat.yMMMd().format(_selectedDate)),
+                      : 'Picked date: ' +
+                          DateFormat.yMMMd().format(_selectedDate)),
                 ),
                 FlatButton(
                   textColor: Theme.of(context).primaryColor,
@@ -72,7 +58,7 @@ class _NewTransactionState extends State<NewTransaction> {
               child: Text('Add Transaction'),
               color: Theme.of(context).primaryColor,
               textColor: Theme.of(context).textTheme.button.color,
-              onPressed: onSubmit,
+              onPressed: _onSubmit,
             )
           ],
         ),
@@ -80,17 +66,33 @@ class _NewTransactionState extends State<NewTransaction> {
     );
   }
 
-  void onSubmit() {
+  void _onSubmit() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
-    if (enteredTitle.isNotEmpty && enteredAmount > 0) {
+    if (enteredTitle.isNotEmpty && enteredAmount > 0 && _selectedDate != null) {
       widget._addTransaction(
         enteredTitle,
         enteredAmount,
+        _selectedDate,
       );
 
       Navigator.of(context).pop();
     }
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    ).then((date) {
+      if (date != null) {
+        setState(() {
+          _selectedDate = date;
+        });
+      }
+    });
   }
 }
